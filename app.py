@@ -196,7 +196,9 @@ def like_message(msg_id):
         like = Likes(user_id=g.user.id, message_id=msg_id)
         db.session.add(like)
         db.session.commit()
-        return redirect(f'/users/{g.user.id}')
+        # return redirect(f'/users/{g.user.id}')
+        # return redirect(f'/users/{g.user.id}/likes')
+        return redirect('/')
     else:
         return ('<h2>You can not like your own warbler</h2>')
 
@@ -226,7 +228,7 @@ def unlike_message(msg_id):
     message = Message.query.get_or_404(msg_id)
     db.session.delete(message)
     db.session.commit()
-    return redirect(f'/users/{g.user.id}')
+    return redirect(f'/users/{g.user.id}/likes')
 
 @app.route('/users/follow/<int:follow_id>', methods=['POST'])
 def add_follow(follow_id):
