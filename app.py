@@ -214,6 +214,7 @@ def users_likes(user_id):
     user = User.query.get_or_404(user_id)
     likes = user.likes
     messages = [like for like in likes]
+    print(messages)
     return render_template('users/likes.html', messages=messages, user=user )
 
 
@@ -225,8 +226,9 @@ def unlike_message(msg_id):
         flash("Access unauthorized.", "danger")
         return redirect("/")
     
-    message = Message.query.get_or_404(msg_id)
-    db.session.delete(message)
+
+    like = Likes.query.filter_by(message_id=msg_id).first()
+    db.session.delete(like)
     db.session.commit()
     return redirect(f'/users/{g.user.id}/likes')
 
@@ -302,8 +304,7 @@ def delete_user():
 
     do_logout()
 
-   
-    user = User.query.filter_by(id=g.user.id).first()
+    user = User.query.get_or_404(g.user.id)
     db.session.delete(user)
     db.session.commit()
 

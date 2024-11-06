@@ -135,10 +135,4 @@ class UserModelTestCase(TestCase):
         user = User.authenticate("test1","password")
         self.assertTrue(user)
 
-    def test_user_fail_to_authenticate(self):
-        """Test invalid authentication"""
-        user = User.authenticate("test3","password")
-        self.assertTrue("False")
-
-        user = User.authenticate("test1","password2")
-        self.assertTrue("False")
+    
